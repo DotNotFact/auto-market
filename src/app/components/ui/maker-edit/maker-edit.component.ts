@@ -46,6 +46,7 @@ export class MakerEditComponent {
 
   updateMaker() {
     if (this.makerForm.valid) {
+      // +
       const updatedMaker = { ...this.makerForm.value, id: this.makerId };
       this.makerService.updateMaker(updatedMaker).subscribe({
         next: () => {

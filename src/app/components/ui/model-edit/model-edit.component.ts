@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MakerService } from "@/services/MakerService";
 import { CommonModule } from "@angular/common";
 import { ModelService } from "@/services/ModelService";
+import { Model } from "@/models/Model";
 
 @Component({
   selector: "app-model-edit",
@@ -24,7 +25,7 @@ export class ModelEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private makerService: ModelService,
+    private modelService: ModelService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -35,41 +36,35 @@ export class ModelEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.makerId = this.route.snapshot.paramMap.get("makerId");
-    this.modelId = this.route.snapshot.paramMap.get("modelId");
+    this.route.paramMap.subscribe((params) => {
+      this.makerId = params.get("makerId");
+      this.modelId = params.get("modelId");
 
-    if (this.modelId) {
-      this.makerService.getModelById(this.modelId).subscribe((model) => {
-        this.modelForm.patchValue(model);
-      });
-    }
+      if (this.modelId) {
+        this.modelService.getModelById(this.modelId).subscribe((model) => {
+          this.modelForm.patchValue(model);
+        });
+      }
+    });
   }
 
   saveModel() {
     if (this.modelForm.valid) {
-      const modelData = { ...this.modelForm.value, makerId: this.makerId };
+      const modelData: Model = {
+        ...this.modelForm.value,
+        id: this.modelId,
+        makerId: this.makerId,
+      };
       if (this.modelId) {
-        this.makerService
-          .updateModel({ ...modelData, id: this.modelId })
-          .subscribe({
-            next: () => {
-              this.router.navigate(["/maker-page"]);
-            },
-            error: (err) => {
-              console.error("Error updating model", err);
-              alert(
-                "Failed to update model. Please check the console for details."
-              );
-            },
-          });
-      } else {
-        this.makerService.addModel(modelData).subscribe({
+        this.modelService.updateModel(modelData).subscribe({
           next: () => {
             this.router.navigate(["/maker-page"]);
           },
           error: (err) => {
-            console.error("Error adding model", err);
-            alert("Failed to add model. Please check the console for details.");
+            console.error("Error updating model", err);
+            alert(
+              "Failed to update model. Please check the console for details."
+            );
           },
         });
       }

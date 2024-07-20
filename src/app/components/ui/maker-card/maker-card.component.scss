@@ -5,33 +5,65 @@
   border-radius: 0.5rem;
   grid-template-columns: 1fr;
   border: 3px solid var(--dark-color);
+
+  > div {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    justify-content: center;
+    border: 1px solid var(--dark-color);
+  }
+
+  > .maker-card__actions {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  > .maker-card__actions > .maker-card__action-add {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-column: 1/-1;
+  }
+
+  > .maker-card__models {
+    grid-column: 1/-1;
+  }
+
+  > .maker-card__no-models {
+    grid-column: 1/-1;
+  }
 }
 
-.maker-card > div {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  border-radius: 0.5rem;
-  justify-content: center;
-  border: 1px solid var(--dark-color);
-}
-
-.maker-card > .maker-card__actions {
+.model-card {
   display: grid;
-  grid-gap: 0.5rem;
-  grid-template-columns: 1fr 1fr;
-}
+  padding: 1rem;
+  // Изменить
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  border: 3px solid var(--dark-color);
 
-.maker-card > .maker-card__models {
-  grid-column: 1/-1;
-}
+  > .name-releaseYear {
+    display: grid;
+  }
 
-.maker-card > .maker-card__no-models {
-  grid-column: 1/-1;
+  > .model-card__actions {
+    display: grid;
+    grid-gap: 0.5rem;
+  }
 }
 
 @media (min-width: 650px) {
   .maker-card {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .model-card {
+    grid-template-columns: 1fr 1fr;
+
+    > .model-card__actions {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }

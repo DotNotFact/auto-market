@@ -1,4 +1,4 @@
-<h1>{{ modelId ? "Edit Model" : "Add Model" }}</h1>
+<h1>Edit Model</h1>
 <form [formGroup]="modelForm" (ngSubmit)="saveModel()">
   <label>Name:</label>
   <input formControlName="name" />
@@ -17,5 +17,5 @@
     Release Year is required and must be no earlier than 1886.
   </div>
 
-  <button type="submit">{{ modelId ? "Update" : "Add" }}</button>
+  <button type="submit">Изменить</button>
 </form>

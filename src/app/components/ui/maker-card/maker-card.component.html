@@ -10,9 +10,22 @@
   </div>
 
   <div class="maker-card__actions">
-    <a class="btn" [routerLink]="['/maker-edit', maker.id]">Изменить</a>
-    <button class="btn" (click)="deleteMaker(maker.id)">Удалить</button>
-    <a class="btn" [routerLink]="['/model-add', maker.id]">Добавить Модель</a>
+    <a
+      class="btn maker-card__action-edit"
+      [routerLink]="['/maker-edit', maker.id]"
+      >Изменить</a
+    >
+    <button
+      class="btn maker-card__action-delete"
+      (click)="deleteMaker(maker.id)"
+    >
+      Удалить
+    </button>
+    <a
+      class="btn maker-card__action-add"
+      [routerLink]="['/model-add', maker.id]"
+      >Добавить Модель</a
+    >
     <!-- Button to add model -->
   </div>
 
@@ -24,10 +37,21 @@
       <summary>Модели</summary>
 
       <ng-container *ngFor="let model of maker.models">
-        <p>{{ model.name }}</p>
-        <p>{{ model.releaseYear }}</p>
-        <a class="btn" [routerLink]="['/model-edit', model.id]">Изменить</a>
-        <button class="btn" (click)="deleteModel(model.id)">Удалить</button>
+        <div class="model-card">
+          <div class="name-releaseYear">
+            <p class="model-card__name">Название: {{ model.name }}</p>
+            <p class="model-card__releaseYear">
+              Год выпуска: {{ model.releaseYear }}
+            </p>
+          </div>
+          <div class="model-card__actions">
+            <a class="btn" [routerLink]="['/model-edit', maker.id, model.id]"
+              >Изменить</a
+            >
+
+            <button class="btn" (click)="deleteModel(model.id)">Удалить</button>
+          </div>
+        </div>
       </ng-container>
     </details>
   </div>

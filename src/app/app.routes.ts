@@ -4,14 +4,17 @@ import { MakerAddComponent } from "./components/ui/maker-add/maker-add.component
 import { Routes } from "@angular/router";
 import { MakerEditComponent } from "./components/ui/maker-edit/maker-edit.component";
 import { ModelEditComponent } from "./components/ui/model-edit/model-edit.component";
+import { ModelAddComponent } from "./components/ui/model-add/model-add.component";
 
 export const routes: Routes = [
   { path: "home-page", component: HomePageComponent },
+
   { path: "maker-page", component: MakerPageComponent },
   { path: "maker-add", component: MakerAddComponent },
   { path: "maker-edit/:id", component: MakerEditComponent },
-  { path: "model-add/:makerId", component: ModelEditComponent }, // Route for adding a model
-  { path: "model-edit/:modelId", component: ModelEditComponent }, // Route for editing a model
+
+  { path: "model-add/:makerId", component: ModelAddComponent }, // Route for adding a model
+  { path: "model-edit/:makerId/:modelId", component: ModelEditComponent }, // Route for editing a model
 
   { path: "", redirectTo: "/home-page", pathMatch: "full" },
 ];

@@ -209,3 +209,45 @@ h3 {
 .testimonial > p:last-of-type {
   opacity: 0.7;
 }
+
+details {
+  width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--dark-color);
+
+  > summary {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 1rem 1rem 1rem 2.2rem;
+  }
+
+  > summary:before {
+    content: "";
+    left: 1rem;
+    top: 1.3rem;
+    position: absolute;
+    border-style: solid;
+    transform: rotate(0);
+    border-width: 0.4rem;
+    transform-origin: 0.2rem 50%;
+    transition: 0.25s transform ease;
+    border-color: transparent transparent transparent var(--dark-color);
+  }
+
+  &[open] > summary:before {
+    transform: rotate(90deg);
+  }
+
+  > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
