@@ -1,0 +1,3 @@
+@for (maker of makers; track $index) {
+<app-maker-card [maker]="maker" (makerDeleted)="loadMakers()" />
+}

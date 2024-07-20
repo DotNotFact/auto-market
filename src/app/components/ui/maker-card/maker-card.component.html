@@ -1,0 +1,41 @@
+<div class="maker-card">
+  <div class="maker-card__name">
+    <p>Название: {{ maker.name }}</p>
+  </div>
+  <div class="maker-card__country">
+    <p>Страна: {{ maker.country }}</p>
+  </div>
+  <div class="maker-card__founded-year">
+    <p>Год основания: {{ maker.foundedYear }}</p>
+  </div>
+
+  <div class="maker-card__actions">
+    <a class="btn" [routerLink]="['/maker-edit', maker.id]">Изменить</a>
+    <button class="btn" (click)="deleteMaker(maker.id)">Удалить</button>
+    <a class="btn" [routerLink]="['/model-add', maker.id]">Добавить Модель</a>
+    <!-- Button to add model -->
+  </div>
+
+  <div
+    *ngIf="maker.models && maker.models.length > 0"
+    class="maker-card__models"
+  >
+    <details>
+      <summary>Модели</summary>
+
+      <ng-container *ngFor="let model of maker.models">
+        <p>{{ model.name }}</p>
+        <p>{{ model.releaseYear }}</p>
+        <a class="btn" [routerLink]="['/model-edit', model.id]">Изменить</a>
+        <button class="btn" (click)="deleteModel(model.id)">Удалить</button>
+      </ng-container>
+    </details>
+  </div>
+
+  <div
+    *ngIf="!maker.models || maker.models.length === 0"
+    class="maker-card__no-models"
+  >
+    <p>У этого производителя нет моделей</p>
+  </div>
+</div>
