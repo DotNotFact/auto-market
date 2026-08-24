@@ -18,10 +18,3 @@ export const routes: Routes = [
 
   { path: "", redirectTo: "/home-page", pathMatch: "full" },
 ];
-// export const routes: Routes = [
-//   { path: '', component: HomeComponent }, // Главная
-//   { path: 'makers', component: MakersComponent }, // Производители
-//   { path: 'maker-form', component: MakerFormComponent }, // Форма для добавления/обновления производителей
-//   { path: 'models', component: ModelsComponent }, // Модели
-//   { path: '**', redirectTo: '' } // Редирект на главную для несуществующих маршрутов
-// ];
