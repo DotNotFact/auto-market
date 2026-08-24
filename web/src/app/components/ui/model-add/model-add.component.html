@@ -1,0 +1,21 @@
+<h1>Добавить модель</h1>
+<form [formGroup]="modelForm" (ngSubmit)="addModel()">
+  <label>Name:</label>
+  <input formControlName="name" />
+  <div *ngIf="modelForm.get('name')?.invalid && modelForm.get('name')?.touched">
+    Name is required.
+  </div>
+
+  <label>Release Year:</label>
+  <input type="number" formControlName="releaseYear" />
+  <div
+    *ngIf="
+      modelForm.get('releaseYear')?.invalid &&
+      modelForm.get('releaseYear')?.touched
+    "
+  >
+    Release Year is required and must be no earlier than 1886.
+  </div>
+
+  <button type="submit">Add</button>
+</form>

@@ -1,0 +1,35 @@
+.app-header {
+  display: grid;
+  padding: 1rem;
+  grid-gap: 1rem;
+  align-items: center;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  grid-template-columns: 1fr 1fr auto;
+  border-bottom: 3px solid var(--dark-color);
+}
+
+.app-header > .logo-name {
+  display: grid;
+  grid-gap: 0.5rem;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+}
+
+.app-header > .logo-name > .app-header__logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.app-header > .logo-name > .app-header__logo {
+  margin-right: auto;
+}
+
+.app-header > .app-header__menu {
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

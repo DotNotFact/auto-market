@@ -1,0 +1,31 @@
+<h1>Добавить производителя</h1>
+<form [formGroup]="makerForm" (ngSubmit)="addMaker()">
+  <label>Name:</label>
+  <input formControlName="name" />
+  <div *ngIf="makerForm.get('name')?.invalid && makerForm.get('name')?.touched">
+    Name is required.
+  </div>
+
+  <label>Country:</label>
+  <input formControlName="country" />
+  <div
+    *ngIf="
+      makerForm.get('country')?.invalid && makerForm.get('country')?.touched
+    "
+  >
+    Country is required.
+  </div>
+
+  <label>Founded Year:</label>
+  <input type="number" formControlName="foundedYear" />
+  <div
+    *ngIf="
+      makerForm.get('foundedYear')?.invalid &&
+      makerForm.get('foundedYear')?.touched
+    "
+  >
+    Founded Year is required and must be no earlier than 1886.
+  </div>
+
+  <button type="submit">Add</button>
+</form>
