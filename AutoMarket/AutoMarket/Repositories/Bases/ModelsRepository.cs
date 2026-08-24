@@ -18,7 +18,7 @@ public class ModelsRepository(ApplicationDbContext context) : IRepository<ModelE
         return entities;
     }
 
-    public async Task<ModelEntity> GetByIdAsync(Guid id)
+    public async Task<ModelEntity?> GetByIdAsync(Guid id)
     {
         var entity = await _context.Models
             .Include(c => c.Maker)
@@ -39,7 +39,8 @@ public class ModelsRepository(ApplicationDbContext context) : IRepository<ModelE
             .Where(c => c.Id == entity.Id)
             .ExecuteUpdateAsync(sp => sp
                 .SetProperty(c => c.Name, entity.Name)
-                .SetProperty(c => c.ReleaseYear, entity.ReleaseYear));
+                .SetProperty(c => c.ReleaseYear, entity.ReleaseYear)
+                .SetProperty(c => c.MakerId, entity.MakerId));
     }
 
     public async Task DeleteAsync(Guid id)

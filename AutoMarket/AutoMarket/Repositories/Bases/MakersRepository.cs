@@ -18,7 +18,7 @@ public class MakersRepository(ApplicationDbContext context) : IRepository<MakerE
         return entities;
     }
 
-    public async Task<MakerEntity> GetByIdAsync(Guid id)
+    public async Task<MakerEntity?> GetByIdAsync(Guid id)
     {
         var entity = await _context.Makers
             .Include(c => c.Models)

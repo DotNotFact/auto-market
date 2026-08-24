@@ -6,7 +6,7 @@ using AutoMarket.DTOs.Request;
 namespace AutoMarket.Controllers;
 
 /// <summary>
-/// Контроллер для управления автомобилями.
+/// РљРѕРЅС‚СЂРѕР»Р»РµСЂ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ Р°РІС‚РѕРјРѕР±РёР»СЏРјРё.
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
@@ -17,11 +17,11 @@ public class CarController(ICarService carService) : ControllerBase
     #region [ Maker ]
 
     /// <summary>
-    /// Получить всех производителей автомобилей.
+    /// РџРѕР»СѓС‡РёС‚СЊ РІСЃРµС… РїСЂРѕРёР·РІРѕРґРёС‚РµР»РµР№ Р°РІС‚РѕРјРѕР±РёР»РµР№.
     /// </summary>
-    /// <returns>Список всех производителей.</returns>
+    /// <returns>РЎРїРёСЃРѕРє РІСЃРµС… РїСЂРѕРёР·РІРѕРґРёС‚РµР»РµР№.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     GET /api/Car/get-all-makers
     ///
@@ -34,12 +34,12 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Получить производителя по идентификатору.
+    /// РџРѕР»СѓС‡РёС‚СЊ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ.
     /// </summary>
-    /// <param name="request">Запрос, содержащий идентификатор производителя.</param>
-    /// <returns>Информация о производителе.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.</param>
+    /// <returns>РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»Рµ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     GET /api/Car/get-maker?id={id}
     ///
@@ -56,12 +56,12 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Добавить нового производителя.
+    /// Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.
     /// </summary>
-    /// <param name="request">Запрос на создание нового производителя.</param>
-    /// <returns>Действие создания.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ СЃРѕР·РґР°РЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     POST /api/Car/add-maker?name={name}&country={country}&foundedYear={foundedYear}
     ///
@@ -70,16 +70,16 @@ public class CarController(ICarService carService) : ControllerBase
     public async Task<ActionResult> AddMaker(CreateMakerRequest request)
     {
         var createdMaker = await _carService.AddMakerAsync(request);
-        return NoContent();
+        return CreatedAtAction(nameof(GetMakerById), new { id = createdMaker.Id }, createdMaker);
     }
 
     /// <summary>
-    /// Обновить информацию о производителе.
+    /// РћР±РЅРѕРІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»Рµ.
     /// </summary>
-    /// <param name="request">Запрос на обновление информации о производителе.</param>
-    /// <returns>Действие обновления.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° РѕР±РЅРѕРІР»РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»Рµ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ РѕР±РЅРѕРІР»РµРЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     PUT /api/Car/update-maker?id={id}&name={name}&country={country}&foundedYear={foundedYear}
     ///
@@ -92,12 +92,12 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Удалить производителя.
+    /// РЈРґР°Р»РёС‚СЊ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.
     /// </summary>
-    /// <param name="request">Запрос на удаление производителя.</param>
-    /// <returns>Действие удаления.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° СѓРґР°Р»РµРЅРёРµ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ СѓРґР°Р»РµРЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     DELETE /api/Car/delete-maker?id={id}
     ///
@@ -114,12 +114,12 @@ public class CarController(ICarService carService) : ControllerBase
     #region [ Model ]
 
     /// <summary>
-    /// Получить модель автомобиля по идентификатору.
+    /// РџРѕР»СѓС‡РёС‚СЊ РјРѕРґРµР»СЊ Р°РІС‚РѕРјРѕР±РёР»СЏ РїРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ.
     /// </summary>
-    /// <param name="request">Запрос, содержащий идентификатор модели автомобиля.</param>
-    /// <returns>Информация о модели.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РјРѕРґРµР»Рё Р°РІС‚РѕРјРѕР±РёР»СЏ.</param>
+    /// <returns>РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РјРѕРґРµР»Рё.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     GET /api/Car/get-model?id={id}
     ///
@@ -136,12 +136,12 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Добавить новую модель автомобиля.
+    /// Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ РјРѕРґРµР»СЊ Р°РІС‚РѕРјРѕР±РёР»СЏ.
     /// </summary>
-    /// <param name="request">Запрос на создание новой модели автомобиля.</param>
-    /// <returns>Действие создания.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕР№ РјРѕРґРµР»Рё Р°РІС‚РѕРјРѕР±РёР»СЏ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ СЃРѕР·РґР°РЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     POST /api/Car/add-model?name={name}&releaseYear={releaseYear}&makerId={makerId}
     ///
@@ -154,12 +154,12 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Обновить информацию о модели автомобиля.
+    /// РћР±РЅРѕРІРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РјРѕРґРµР»Рё Р°РІС‚РѕРјРѕР±РёР»СЏ.
     /// </summary>
-    /// <param name="request">Запрос на обновление информации о модели автомобиля.</param>
-    /// <returns>Действие обновления.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° РѕР±РЅРѕРІР»РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РјРѕРґРµР»Рё Р°РІС‚РѕРјРѕР±РёР»СЏ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ РѕР±РЅРѕРІР»РµРЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     PUT /api/Car/update-model?id={id}&name={name}&releaseYear={releaseYear}&makerId={makerId}
     ///
@@ -172,18 +172,18 @@ public class CarController(ICarService carService) : ControllerBase
     }
 
     /// <summary>
-    /// Удалить модель автомобиля.
+    /// РЈРґР°Р»РёС‚СЊ РјРѕРґРµР»СЊ Р°РІС‚РѕРјРѕР±РёР»СЏ.
     /// </summary>
-    /// <param name="request">Запрос на удаление модели автомобиля.</param>
-    /// <returns>Действие удаления.</returns>
+    /// <param name="request">Р—Р°РїСЂРѕСЃ РЅР° СѓРґР°Р»РµРЅРёРµ РјРѕРґРµР»Рё Р°РІС‚РѕРјРѕР±РёР»СЏ.</param>
+    /// <returns>Р”РµР№СЃС‚РІРёРµ СѓРґР°Р»РµРЅРёСЏ.</returns>
     /// <remarks>
-    /// Пример запроса:
+    /// РџСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°:
     ///
     ///     DELETE /api/Car/delete-model?id={id}
     ///
     /// </remarks>
     [HttpDelete("delete-model")]
-    public async Task<ActionResult> DeleteMaker([FromQuery] DeleteModelRequest request)
+    public async Task<ActionResult> DeleteModel([FromQuery] DeleteModelRequest request)
     {
         await _carService.DeleteModelAsync(request.Id);
         return NoContent();
