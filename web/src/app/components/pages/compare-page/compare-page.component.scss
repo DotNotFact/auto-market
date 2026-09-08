@@ -79,11 +79,13 @@
   height: 38px;
   padding: 0 14px;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
+  line-height: 1;
 
   small {
     font-size: 11px;
+    line-height: 1;
     color: var(--muted);
     font-weight: 500;
   }
