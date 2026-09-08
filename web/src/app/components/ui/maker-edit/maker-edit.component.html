@@ -1,31 +1,56 @@
-<h1>Edit Maker</h1>
-<form [formGroup]="makerForm" (ngSubmit)="updateMaker()">
-  <label>Name:</label>
-  <input formControlName="name" />
-  <div *ngIf="makerForm.get('name')?.invalid && makerForm.get('name')?.touched">
-    Name is required.
-  </div>
+<div class="form-page">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a routerLink="/home-page">Главная</a>
+    <span>/</span>
+    <a routerLink="/maker-page">Производители</a>
+    <span>/</span>
+    <span>{{ makerForm.get('name')?.value || "Редактирование" }}</span>
+  </nav>
 
-  <label>Country:</label>
-  <input formControlName="country" />
-  <div
-    *ngIf="
-      makerForm.get('country')?.invalid && makerForm.get('country')?.touched
-    "
-  >
-    Country is required.
-  </div>
+  <form class="card form-card" [formGroup]="makerForm" (ngSubmit)="updateMaker()" novalidate>
+    <div>
+      <h1>Редактирование производителя</h1>
+      <p class="form-sub">Изменения применяются сразу после сохранения.</p>
+    </div>
 
-  <label>Founded Year:</label>
-  <input type="number" formControlName="foundedYear" />
-  <div
-    *ngIf="
-      makerForm.get('foundedYear')?.invalid &&
-      makerForm.get('foundedYear')?.touched
-    "
-  >
-    Founded Year is required and must be no earlier than 1886.
-  </div>
+    <div class="field">
+      <label for="name">Название</label>
+      <input id="name" formControlName="name" placeholder="Например, Toyota" autocomplete="off"
+        [class.is-invalid]="invalid('name')" />
+      @if (invalid('name')) {
+        <span class="error">Укажите название производителя.</span>
+      }
+    </div>
 
-  <button type="submit">Update</button>
-</form>
+    <div class="field-row">
+      <div class="field">
+        <label for="country">Страна</label>
+        <input id="country" formControlName="country" placeholder="Япония" autocomplete="off"
+          [class.is-invalid]="invalid('country')" />
+        @if (invalid('country')) {
+          <span class="error">Укажите страну.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="foundedYear">Год основания</label>
+        <input id="foundedYear" type="number" formControlName="foundedYear" placeholder="1937" min="1886" [max]="currentYear"
+          [class.is-invalid]="invalid('foundedYear')" />
+        @if (invalid('foundedYear')) {
+          <span class="error">Год от 1886 до {{ currentYear }}.</span>
+        }
+      </div>
+    </div>
+
+    @if (submitError()) {
+      <p class="error">{{ submitError() }}</p>
+    }
+
+    <div class="form-actions">
+      <a class="btn btn-outline" routerLink="/maker-page">Отмена</a>
+      <button class="btn btn-primary" type="submit" [disabled]="saving() || loading()">
+        {{ saving() ? "Сохраняем…" : "Сохранить" }}
+      </button>
+    </div>
+  </form>
+</div>

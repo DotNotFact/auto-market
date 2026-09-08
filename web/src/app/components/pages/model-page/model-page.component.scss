@@ -1,0 +1,142 @@
+:host {
+  display: block;
+}
+
+.table {
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) 140px 96px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:not(.row--head):hover {
+    background: var(--surface-2);
+  }
+}
+
+.row--head {
+  padding-block: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface-2);
+}
+
+.row-skeleton {
+  height: 56px;
+  margin: 12px 24px;
+  border-radius: var(--radius-sm);
+}
+
+.cell-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+
+  .name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4a3aa8;
+  background: #ece9ff;
+
+  &[data-tone="0"] {
+    color: #b3263a;
+    background: #ffe3e8;
+  }
+  &[data-tone="1"] {
+    color: #1f4fb8;
+    background: #e1ebff;
+  }
+  &[data-tone="2"] {
+    color: #8a5a00;
+    background: #fff1c9;
+  }
+  &[data-tone="3"] {
+    color: #147a45;
+    background: #dff7e8;
+  }
+  &[data-tone="4"] {
+    color: #a3227e;
+    background: #ffe2f3;
+  }
+}
+
+.cell-maker {
+  display: grid;
+  min-width: 0;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  small {
+    color: var(--muted);
+    font-size: 12px;
+  }
+}
+
+.cell-year {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+}
+
+.cell-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) 96px;
+    row-gap: 6px;
+  }
+
+  .row--head {
+    display: none;
+  }
+
+  .cell-maker {
+    grid-column: 1;
+    padding-left: 52px;
+  }
+
+  .cell-year {
+    grid-column: 1;
+    padding-left: 52px;
+    font-size: 13px;
+  }
+
+  .cell-actions {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+  }
+}

@@ -1,1 +1,96 @@
-<h1>Главная</h1>
+<section class="hero card">
+  <div class="hero__text">
+    <span class="eyebrow">О проекте</span>
+    <h1>Каталог автопроизводителей и их модельных рядов</h1>
+    <p>
+      AutoMarket — учебный full-stack проект: REST API на ASP.NET Core с PostgreSQL
+      и Angular-клиент поверх него. Производители, модели, фильтры по регионам,
+      поиск и полный CRUD без перезагрузки страницы.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn-primary" routerLink="/maker-page">Открыть каталог</a>
+      <a class="btn btn-outline" routerLink="/maker-add">+ Добавить производителя</a>
+    </div>
+  </div>
+
+  <div class="hero__stats">
+    <div class="stat">
+      <strong>{{ store.makers().length }}</strong>
+      <span>Производителей</span>
+    </div>
+    <div class="stat">
+      <strong>{{ store.totalModels() }}</strong>
+      <span>Моделей</span>
+    </div>
+    <div class="stat">
+      <strong>{{ countries() }}</strong>
+      <span>Стран</span>
+    </div>
+    <div class="stat">
+      <strong>{{ oldest() ?? "—" }}</strong>
+      <span>Самый ранний год</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <article class="feature card">
+    <span class="feature__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="3" />
+        <path d="M3 10h18M9 4v16" />
+      </svg>
+    </span>
+    <h2>Производители и модели</h2>
+    <p>Карточки с ключевыми показателями, быстрый просмотр моделей и редактирование в пару кликов.</p>
+  </article>
+
+  <article class="feature card">
+    <span class="feature__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </svg>
+    </span>
+    <h2>Поиск и фильтры</h2>
+    <p>Мгновенный поиск по названиям производителей и моделей, фильтр по регионам и сортировка по году основания.</p>
+  </article>
+
+  <article class="feature card">
+    <span class="feature__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3Z" />
+        <path d="M4 7v10c0 1.7 3.6 3 8 3s8-1.3 8-3V7" />
+        <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+      </svg>
+    </span>
+    <h2>REST API + PostgreSQL</h2>
+    <p>ASP.NET Core Web API, EF Core, единая обёртка ответов и интерактивная документация на Scalar.</p>
+  </article>
+</section>
+
+<section class="stack card">
+  <h2>Стек</h2>
+  <div class="stack__groups">
+    <div>
+      <span class="stack__label">API</span>
+      <div class="chips">
+        <span class="chip">.NET 10</span>
+        <span class="chip">ASP.NET Core Web API</span>
+        <span class="chip">EF Core 10</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Scalar (OpenAPI)</span>
+      </div>
+    </div>
+    <div>
+      <span class="stack__label">Web</span>
+      <div class="chips">
+        <span class="chip">Angular 18</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Signals</span>
+        <span class="chip">Reactive Forms</span>
+        <span class="chip">SCSS</span>
+      </div>
+    </div>
+  </div>
+</section>

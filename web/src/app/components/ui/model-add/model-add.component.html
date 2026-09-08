@@ -1,21 +1,55 @@
-<h1>Добавить модель</h1>
-<form [formGroup]="modelForm" (ngSubmit)="addModel()">
-  <label>Name:</label>
-  <input formControlName="name" />
-  <div *ngIf="modelForm.get('name')?.invalid && modelForm.get('name')?.touched">
-    Name is required.
-  </div>
+<div class="form-page">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <a routerLink="/home-page">Главная</a>
+    <span>/</span>
+    <a routerLink="/maker-page">Производители</a>
+    <span>/</span>
+    <span>{{ makerName() || "Производитель" }}</span>
+    <span>/</span>
+    <span>Новая модель</span>
+  </nav>
 
-  <label>Release Year:</label>
-  <input type="number" formControlName="releaseYear" />
-  <div
-    *ngIf="
-      modelForm.get('releaseYear')?.invalid &&
-      modelForm.get('releaseYear')?.touched
-    "
-  >
-    Release Year is required and must be no earlier than 1886.
-  </div>
+  <form class="card form-card" [formGroup]="modelForm" (ngSubmit)="addModel()" novalidate>
+    <div>
+      <h1>Новая модель</h1>
+      <p class="form-sub">
+        @if (makerName()) {
+          Модель будет добавлена производителю <strong>{{ makerName() }}</strong>.
+        } @else {
+          Укажите название и год выпуска модели.
+        }
+      </p>
+    </div>
 
-  <button type="submit">Add</button>
-</form>
+    <div class="field-row">
+      <div class="field">
+        <label for="name">Название модели</label>
+        <input id="name" formControlName="name" placeholder="Например, Corolla" autocomplete="off"
+          [class.is-invalid]="invalid('name')" />
+        @if (invalid('name')) {
+          <span class="error">Укажите название модели.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="releaseYear">Год выпуска</label>
+        <input id="releaseYear" type="number" formControlName="releaseYear" placeholder="2024" min="1886" [max]="maxYear"
+          [class.is-invalid]="invalid('releaseYear')" />
+        @if (invalid('releaseYear')) {
+          <span class="error">Год от 1886 до {{ maxYear }}.</span>
+        }
+      </div>
+    </div>
+
+    @if (submitError()) {
+      <p class="error">{{ submitError() }}</p>
+    }
+
+    <div class="form-actions">
+      <a class="btn btn-outline" routerLink="/maker-page">Отмена</a>
+      <button class="btn btn-primary" type="submit" [disabled]="saving()">
+        {{ saving() ? "Сохраняем…" : "Добавить модель" }}
+      </button>
+    </div>
+  </form>
+</div>

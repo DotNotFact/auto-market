@@ -1,9 +1,9 @@
 :host {
-  height: 100%;
+  min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
 .app-main {
-  padding: 1rem;
+  padding: 40px 0 64px;
 }

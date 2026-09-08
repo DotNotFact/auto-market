@@ -1,0 +1,21 @@
+.app-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  min-height: 64px;
+  padding-block: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.app-footer__brand {
+  font-weight: 700;
+  color: var(--text-2);
+}

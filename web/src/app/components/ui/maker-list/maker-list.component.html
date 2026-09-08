@@ -1,3 +1,30 @@
-@for (maker of makers; track $index) {
-<app-maker-card [maker]="maker" (makerDeleted)="loadMakers()" />
+@if (store.loading() && store.makers().length === 0) {
+  <div class="grid" aria-busy="true" aria-label="Загрузка">
+    @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+      <div class="skeleton skeleton-card"></div>
+    }
+  </div>
+} @else if (store.error()) {
+  <div class="card state">
+    <strong>Каталог недоступен</strong>
+    <span>{{ store.error() }}</span>
+    <button class="btn btn-soft" (click)="store.refresh()">Повторить</button>
+  </div>
+} @else if (visible().length === 0) {
+  <div class="card state">
+    @if (store.makers().length === 0) {
+      <strong>Пока нет ни одного производителя</strong>
+      <span>Добавьте первого — и здесь появится карточка с его моделями.</span>
+      <a class="btn btn-primary" routerLink="/maker-add">+ Добавить производителя</a>
+    } @else {
+      <strong>Ничего не найдено</strong>
+      <span>Попробуйте изменить запрос или фильтр по региону.</span>
+    }
+  </div>
+} @else {
+  <div class="grid">
+    @for (maker of visible(); track maker.id) {
+      <app-maker-card [maker]="maker" (changed)="store.refresh()" />
+    }
+  </div>
 }

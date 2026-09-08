@@ -1,18 +1,40 @@
 <header class="app-header">
-  <a class="logo-name" routerLink="/">
-    <img
-      class="app-header__logo"
-      src="/assets/images/logo.png"
-      alt="Logo"
-      title="Logo"
-    />
-    <p class="app-header__name">Logo</p>
-  </a>
+  <div class="container app-header__inner">
+    <a class="brand" routerLink="/maker-page" aria-label="AutoMarket — на главную">
+      <span class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 12.5 5.2 7.4A2 2 0 0 1 7.1 6h9.8a2 2 0 0 1 1.9 1.4l1.7 5.1" />
+          <rect x="2.5" y="12.5" width="19" height="5.5" rx="1.6" />
+          <circle cx="7" cy="18.5" r="1.7" fill="currentColor" stroke="none" />
+          <circle cx="17" cy="18.5" r="1.7" fill="currentColor" stroke="none" />
+        </svg>
+      </span>
+      <span class="brand__name">AutoMarket</span>
+    </a>
 
-  <div class="app-header__menu">
-    <a class="btn" routerLink="/">Главная</a>
-    <a class="btn" routerLink="/maker-page">Производители</a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a routerLink="/maker-page" routerLinkActive="is-active">Производители</a>
+      <a routerLink="/model-page" routerLinkActive="is-active">Модели</a>
+      <a routerLink="/home-page" routerLinkActive="is-active">О проекте</a>
+    </nav>
+
+    <label class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </svg>
+      <input
+        type="search"
+        [placeholder]="placeholder()"
+        [value]="store.query()"
+        (input)="onSearch($event)"
+        aria-label="Поиск по каталогу"
+      />
+    </label>
+
+    <a class="btn btn-primary add" routerLink="/maker-add">
+      <span aria-hidden="true">+</span>
+      <span>Добавить производителя</span>
+    </a>
   </div>
-
-  <div class="app-header__burger-active"></div>
 </header>

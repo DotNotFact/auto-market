@@ -1,0 +1,150 @@
+:host {
+  display: grid;
+  gap: 28px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 48px;
+  background:
+    radial-gradient(600px 300px at 100% 0%, rgba(47, 91, 231, 0.08), transparent 70%),
+    var(--surface);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    padding: 32px;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero__text {
+  h1 {
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+
+  p {
+    max-width: 60ch;
+    color: var(--text-2);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-content: center;
+}
+
+.stat {
+  display: grid;
+  gap: 4px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+
+  strong {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.feature {
+  padding: 28px;
+
+  h2 {
+    font-size: 18px;
+    margin: 18px 0 8px;
+  }
+
+  p {
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+.feature__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--primary-soft);
+  color: var(--primary);
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.stack {
+  padding: 28px;
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+}
+
+.stack__groups {
+  display: grid;
+  gap: 18px;
+}
+
+.stack__label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

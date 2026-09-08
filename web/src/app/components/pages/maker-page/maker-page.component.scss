@@ -1,9 +1,3 @@
-.maker-page {
-  display: grid;
-  grid-gap: 1rem;
-}
-
-.maker-page > .maker-page__title {
-  display: grid;
-  place-content: center;
+:host {
+  display: block;
 }
