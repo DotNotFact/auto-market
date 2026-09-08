@@ -18,9 +18,60 @@ export class CatalogStore {
     this.makers().reduce((sum, m) => sum + (m.models?.length ?? 0), 0)
   );
 
+  /** Ids of makers picked for side-by-side comparison, in pick order. */
+  readonly compareIds = signal<string[]>(this.readCompareIds());
+  readonly compareLimit = 4;
+
+  readonly compareMakers = computed(() =>
+    this.compareIds()
+      .map((id) => this.makers().find((m) => m.id === id))
+      .filter((m): m is Maker => !!m)
+  );
+
   private loadedOnce = false;
 
   constructor(private makerService: MakerService) {}
+
+  isCompared(id: string): boolean {
+    return this.compareIds().includes(id);
+  }
+
+  /** Adds or removes a maker from the comparison; returns false when the limit is reached. */
+  toggleCompare(id: string): boolean {
+    const ids = this.compareIds();
+    if (ids.includes(id)) {
+      this.setCompareIds(ids.filter((x) => x !== id));
+      return true;
+    }
+    if (ids.length >= this.compareLimit) {
+      return false;
+    }
+    this.setCompareIds([...ids, id]);
+    return true;
+  }
+
+  clearCompare() {
+    this.setCompareIds([]);
+  }
+
+  private setCompareIds(ids: string[]) {
+    this.compareIds.set(ids);
+    try {
+      localStorage.setItem("automarket.compare", JSON.stringify(ids));
+    } catch {
+      /* storage unavailable — comparison just won't survive a reload */
+    }
+  }
+
+  private readCompareIds(): string[] {
+    try {
+      const raw = localStorage.getItem("automarket.compare");
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed.filter((x) => typeof x === "string") : [];
+    } catch {
+      return [];
+    }
+  }
 
   /** Loads the catalog if it has not been loaded yet. */
   ensureLoaded() {

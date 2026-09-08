@@ -148,6 +148,33 @@
     height: 48px;
     flex: none;
   }
+
+  .compare.is-active {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-color: #c9d6ff;
+  }
+}
+
+@media (max-width: 480px) {
+  .maker-card {
+    padding: 20px;
+  }
+
+  .foot {
+    gap: 8px;
+
+    .open {
+      height: 44px;
+      padding-inline: 10px;
+      font-size: 13px;
+    }
+
+    .btn-icon {
+      width: 42px;
+      height: 44px;
+    }
+  }
 }
 
 .models {

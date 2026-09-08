@@ -1,4 +1,5 @@
 import { Maker } from "@/models/Maker";
+import { CatalogStore } from "@/services/CatalogStore";
 import { MakerService } from "@/services/MakerService";
 import { ModelService } from "@/services/ModelService";
 import { countryInfo } from "@/utils/country";
@@ -47,12 +48,19 @@ export class MakerCardComponent {
   readonly hiddenCount = computed(() => Math.max(0, this.modelCount() - PREVIEW_LIMIT));
 
   constructor(
+    public store: CatalogStore,
     private makerService: MakerService,
     private modelService: ModelService
   ) {}
 
   toggle() {
     this.open.update((v) => !v);
+  }
+
+  toggleCompare() {
+    if (!this.store.toggleCompare(this.maker.id)) {
+      alert(`В сравнении уже ${this.store.compareLimit} производителя. Уберите одного на странице «Сравнение».`);
+    }
   }
 
   deleteMaker() {

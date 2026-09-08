@@ -34,6 +34,13 @@
     <button class="btn btn-soft open" type="button" (click)="toggle()" [attr.aria-expanded]="open()">
       {{ open() ? "Скрыть модели" : "Открыть модели" }}
     </button>
+    <button class="btn btn-icon compare" [class.is-active]="store.isCompared(maker.id)" type="button" (click)="toggleCompare()"
+      [title]="store.isCompared(maker.id) ? 'Убрать из сравнения' : 'Добавить в сравнение'" [attr.aria-pressed]="store.isCompared(maker.id)" aria-label="Сравнить">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3v18M15 3v18" />
+        <path d="M4 7h5M15 7h5M4 12h5M15 12h5M4 17h5M15 17h5" />
+      </svg>
+    </button>
     <a class="btn btn-icon" [routerLink]="['/maker-edit', maker.id]" title="Редактировать производителя" aria-label="Редактировать производителя">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 20h9" />

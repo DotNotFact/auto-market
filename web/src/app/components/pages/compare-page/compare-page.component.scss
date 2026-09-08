@@ -1,0 +1,272 @@
+:host {
+  display: grid;
+  gap: 24px;
+}
+
+.page-head {
+  margin-bottom: 0;
+
+  .actions {
+    flex-wrap: nowrap;
+  }
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 320px);
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+
+  svg {
+    flex: none;
+    width: 16px;
+    height: 16px;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    outline: none;
+    color: var(--text);
+  }
+
+  &:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-soft);
+  }
+}
+
+.picker-card {
+  padding: 20px 24px;
+  display: grid;
+  gap: 14px;
+}
+
+.picker-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  font-size: 13px;
+  color: var(--muted);
+
+  strong {
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .limit {
+    color: var(--danger);
+    font-weight: 500;
+  }
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill-sm {
+  height: 38px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+
+  small {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  &.is-active small {
+    color: var(--primary);
+    opacity: 0.8;
+  }
+}
+
+.pill-skeleton {
+  width: 120px;
+  height: 38px;
+  border-radius: 999px;
+}
+
+.picker-empty {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.compare {
+  width: 100%;
+  min-width: calc(220px + var(--cols) * 220px);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+
+  th,
+  td {
+    padding: 16px 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid var(--border);
+  }
+
+  thead th {
+    border-top: 0;
+    padding-top: 22px;
+    padding-bottom: 18px;
+    background: var(--surface-2);
+  }
+
+  th + th,
+  td + td,
+  th + td {
+    border-left: 1px solid var(--border);
+  }
+
+  tbody th {
+    font-weight: 600;
+    color: var(--text-2);
+    background: var(--surface-2);
+    width: 220px;
+
+    small {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+  }
+
+  td {
+    font-variant-numeric: tabular-nums;
+
+    .value {
+      display: block;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .sub {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    &.is-best {
+      background: var(--success-soft);
+      box-shadow: inset 3px 0 0 var(--success);
+
+      .value {
+        color: var(--success);
+      }
+    }
+  }
+
+  tbody tr:hover td:not(.is-best) {
+    background: var(--surface-2);
+  }
+}
+
+.maker-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+
+  .maker-head__text {
+    min-width: 0;
+    flex: 1;
+    display: grid;
+  }
+
+  .name {
+    font-weight: 700;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  .meta {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .remove {
+    flex: none;
+  }
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4a3aa8;
+  background: #ece9ff;
+
+  &[data-tone="0"] {
+    color: #b3263a;
+    background: #ffe3e8;
+  }
+  &[data-tone="1"] {
+    color: #1f4fb8;
+    background: #e1ebff;
+  }
+  &[data-tone="2"] {
+    color: #8a5a00;
+    background: #fff1c9;
+  }
+  &[data-tone="3"] {
+    color: #147a45;
+    background: #dff7e8;
+  }
+  &[data-tone="4"] {
+    color: #a3227e;
+    background: #ffe2f3;
+  }
+}
+
+.models-row .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .chip--empty {
+    color: var(--muted);
+    border-style: dashed;
+    background: transparent;
+  }
+}
+
+.single-hint {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}

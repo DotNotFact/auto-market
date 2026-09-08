@@ -1,0 +1,139 @@
+<nav class="breadcrumbs" aria-label="Хлебные крошки">
+  <a routerLink="/home-page">Главная</a>
+  <span>/</span>
+  <span>Каталог</span>
+  <span>/</span>
+  <span>Сравнение</span>
+</nav>
+
+<div class="page-head">
+  <h1>
+    Сравнение
+    <span class="count">{{ columns().length }} из {{ store.compareLimit }}</span>
+  </h1>
+
+  <div class="actions">
+    <label class="picker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </svg>
+      <input type="search" placeholder="Найти производителя…" [value]="pickerQuery()" (input)="onPickerInput($event)" aria-label="Поиск производителя для сравнения" />
+    </label>
+    <button class="btn btn-outline" type="button" (click)="store.clearCompare()" [disabled]="columns().length === 0">Очистить</button>
+  </div>
+</div>
+
+<section class="card picker-card" aria-label="Выбор производителей">
+  <div class="picker-head">
+    <strong>Выберите до {{ store.compareLimit }} производителей</strong>
+    @if (limitHit()) {
+      <span class="limit">Уже выбрано {{ store.compareLimit }} — уберите одного, чтобы добавить другого</span>
+    } @else {
+      <span>Клик по названию добавляет в сравнение, повторный — убирает</span>
+    }
+  </div>
+
+  @if (store.loading() && store.makers().length === 0) {
+    <div class="pills"><span class="skeleton pill-skeleton"></span><span class="skeleton pill-skeleton"></span><span class="skeleton pill-skeleton"></span></div>
+  } @else if (store.error()) {
+    <div class="state">
+      <strong>Каталог недоступен</strong>
+      <span>{{ store.error() }}</span>
+      <button class="btn btn-soft" (click)="store.refresh()">Повторить</button>
+    </div>
+  } @else {
+    <div class="pills">
+      @for (maker of candidates(); track maker.id) {
+        <button
+          type="button"
+          class="pill pill-sm"
+          [class.is-active]="store.isCompared(maker.id)"
+          [attr.aria-pressed]="store.isCompared(maker.id)"
+          (click)="toggle(maker.id)"
+        >
+          {{ maker.name }}
+          <small>{{ maker.country }}</small>
+        </button>
+      } @empty {
+        <span class="picker-empty">Ничего не найдено</span>
+      }
+    </div>
+  }
+</section>
+
+@if (columns().length === 0) {
+  <div class="card state">
+    <strong>Пока никого не выбрали</strong>
+    <span>Отметьте двух или больше производителей выше или нажмите «Сравнить» в карточке.</span>
+    <a class="btn btn-soft" routerLink="/maker-page">К производителям</a>
+  </div>
+} @else {
+  <section class="card table-wrap" aria-label="Таблица сравнения">
+    <table class="compare" [style.--cols]="columns().length">
+      <thead>
+        <tr>
+          <th scope="col" class="label-col"><span class="sr-only">Параметр</span></th>
+          @for (col of columns(); track col.maker.id) {
+            <th scope="col">
+              <div class="maker-head">
+                <span class="avatar" [attr.data-tone]="col.country.tone" aria-hidden="true">{{ col.country.code }}</span>
+                <div class="maker-head__text">
+                  <a [routerLink]="['/maker-edit', col.maker.id]" class="name">{{ col.maker.name }}</a>
+                  <span class="meta">{{ col.maker.country }} · осн. {{ col.maker.foundedYear }}</span>
+                </div>
+                <button class="btn btn-icon btn-sm remove" type="button" (click)="remove(col.maker.id)" title="Убрать из сравнения" aria-label="Убрать из сравнения">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6 6 18" />
+                  </svg>
+                </button>
+              </div>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track row.label) {
+          <tr>
+            <th scope="row" class="label-col">
+              {{ row.label }}
+              @if (row.hint && columns().length > 1) {
+                <small>лучше: {{ row.hint }}</small>
+              }
+            </th>
+            @for (cell of row.cells; track $index) {
+              <td [class.is-best]="cell.best">
+                <span class="value">{{ cell.text }}</span>
+                @if (cell.sub) {
+                  <span class="sub">{{ cell.sub }}</span>
+                }
+              </td>
+            }
+          </tr>
+        }
+        <tr class="models-row">
+          <th scope="row" class="label-col">Модели <small>новые сверху</small></th>
+          @for (col of columns(); track col.maker.id) {
+            <td>
+              <div class="chips">
+                @for (name of modelPreview(col.maker); track name) {
+                  <span class="chip">{{ name }}</span>
+                }
+                @if (extraModels(col.maker) > 0) {
+                  <span class="chip chip--accent">+{{ extraModels(col.maker) }} ещё</span>
+                }
+                @if (modelPreview(col.maker).length === 0) {
+                  <span class="chip chip--empty">Моделей нет</span>
+                }
+              </div>
+            </td>
+          }
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  @if (columns().length === 1) {
+    <p class="single-hint">Добавьте ещё хотя бы одного производителя, чтобы подсветить лучшие значения.</p>
+  }
+}

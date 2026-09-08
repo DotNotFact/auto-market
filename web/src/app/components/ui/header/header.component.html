@@ -15,6 +15,12 @@
     <nav class="nav" aria-label="Основная навигация">
       <a routerLink="/maker-page" routerLinkActive="is-active">Производители</a>
       <a routerLink="/model-page" routerLinkActive="is-active">Модели</a>
+      <a routerLink="/compare-page" routerLinkActive="is-active">
+        Сравнение
+        @if (store.compareIds().length > 0) {
+          <span class="badge">{{ store.compareIds().length }}</span>
+        }
+      </a>
       <a routerLink="/home-page" routerLinkActive="is-active">О проекте</a>
     </nav>
 
