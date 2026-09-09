@@ -9,18 +9,18 @@
 <div class="page-head">
   <h1>
     Производители
-    <span class="count">{{ list.visibleCount() }}</span>
+    <span class="count">{{ store.visibleCount() }}</span>
   </h1>
 
   <div class="actions" role="group" aria-label="Фильтры">
-    <button class="pill" [class.is-active]="region() === 'all'" (click)="region.set('all')">Все страны</button>
-    <button class="pill" [class.is-active]="region() === 'europe'" (click)="region.set('europe')">Европа</button>
-    <button class="pill" [class.is-active]="region() === 'asia'" (click)="region.set('asia')">Азия</button>
-    <button class="pill" [class.is-active]="region() === 'usa'" (click)="region.set('usa')">США</button>
-    <button class="pill" [class.is-active]="sort() !== 'name'" (click)="toggleSort()">
+    <button class="pill" [class.is-active]="store.region() === 'all'" (click)="store.region.set('all')">Все страны</button>
+    <button class="pill" [class.is-active]="store.region() === 'europe'" (click)="store.region.set('europe')">Европа</button>
+    <button class="pill" [class.is-active]="store.region() === 'asia'" (click)="store.region.set('asia')">Азия</button>
+    <button class="pill" [class.is-active]="store.region() === 'usa'" (click)="store.region.set('usa')">США</button>
+    <button class="pill" [class.is-active]="store.sort() !== 'name'" (click)="toggleSort()">
       {{ sortLabel() }}
     </button>
   </div>
 </div>
 
-<app-maker-list #list [region]="region()" [sort]="sort()" />
+<app-maker-list />

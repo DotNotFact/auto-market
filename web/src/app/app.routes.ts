@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: "maker-edit/:id", component: MakerEditComponent, title: "Редактирование производителя — AutoMarket" },
 
   { path: "model-add/:makerId", component: ModelAddComponent, title: "Новая модель — AutoMarket" },
-  { path: "model-edit/:makerId/:modelId", component: ModelEditComponent, title: "Редактирование модели — AutoMarket" },
+  { path: "model-edit/:modelId", component: ModelEditComponent, title: "Редактирование модели — AutoMarket" },
 
   { path: "", redirectTo: "/maker-page", pathMatch: "full" },
   { path: "**", redirectTo: "/maker-page" },

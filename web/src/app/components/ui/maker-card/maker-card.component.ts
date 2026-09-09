@@ -4,7 +4,7 @@ import { MakerService } from "@/services/MakerService";
 import { ModelService } from "@/services/ModelService";
 import { countryInfo } from "@/utils/country";
 import { I18nPluralPipe } from "@angular/common";
-import { Component, EventEmitter, Input, Output, computed, signal } from "@angular/core";
+import { Component, computed, input, output, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
 
 const PREVIEW_LIMIT = 4;
@@ -17,17 +17,10 @@ const PREVIEW_LIMIT = 4;
   styleUrl: "./maker-card.component.scss",
 })
 export class MakerCardComponent {
-  private readonly makerSig = signal<Maker | null>(null);
-
-  @Input({ required: true }) set maker(value: Maker) {
-    this.makerSig.set(value);
-  }
-  get maker(): Maker {
-    return this.makerSig()!;
-  }
+  readonly maker = input.required<Maker>();
 
   /** Emitted after any mutation so the parent can refresh the catalog. */
-  @Output() changed = new EventEmitter<void>();
+  readonly changed = output<void>();
 
   readonly open = signal(false);
 
@@ -37,10 +30,10 @@ export class MakerCardComponent {
     other: "Моделей",
   };
 
-  readonly country = computed(() => countryInfo(this.makerSig()?.country));
-  readonly modelCount = computed(() => this.makerSig()?.models?.length ?? 0);
+  readonly country = computed(() => countryInfo(this.maker().country));
+  readonly modelCount = computed(() => this.maker().models?.length ?? 0);
   readonly sortedModels = computed(() =>
-    [...(this.makerSig()?.models ?? [])].sort(
+    [...(this.maker().models ?? [])].sort(
       (a, b) => b.releaseYear - a.releaseYear || a.name.localeCompare(b.name, "ru")
     )
   );
@@ -58,13 +51,13 @@ export class MakerCardComponent {
   }
 
   toggleCompare() {
-    if (!this.store.toggleCompare(this.maker.id)) {
+    if (!this.store.toggleCompare(this.maker().id)) {
       alert(`В сравнении уже ${this.store.compareLimit} производителя. Уберите одного на странице «Сравнение».`);
     }
   }
 
   deleteMaker() {
-    const maker = this.maker;
+    const maker = this.maker();
     const suffix = this.modelCount() > 0 ? ` вместе с ${this.modelCount()} моделями` : "";
     if (!confirm(`Удалить производителя «${maker.name}»${suffix}?`)) {
       return;

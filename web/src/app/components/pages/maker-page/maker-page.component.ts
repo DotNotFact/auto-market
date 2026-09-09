@@ -1,6 +1,7 @@
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { MakerListComponent, MakerSort, RegionFilter } from "../../ui/maker-list/maker-list.component";
+import { CatalogStore, MakerSort } from "@/services/CatalogStore";
+import { MakerListComponent } from "../../ui/maker-list/maker-list.component";
 
 @Component({
   selector: "app-maker-page",
@@ -10,11 +11,8 @@ import { MakerListComponent, MakerSort, RegionFilter } from "../../ui/maker-list
   styleUrl: "./maker-page.component.scss",
 })
 export class MakerPageComponent {
-  readonly region = signal<RegionFilter>("all");
-  readonly sort = signal<MakerSort>("name");
-
   readonly sortLabel = computed(() => {
-    switch (this.sort()) {
+    switch (this.store.sort()) {
       case "year-desc":
         return "По году ↓";
       case "year-asc":
@@ -24,12 +22,14 @@ export class MakerPageComponent {
     }
   });
 
+  constructor(public store: CatalogStore) {}
+
   toggleSort() {
     const next: Record<MakerSort, MakerSort> = {
       name: "year-desc",
       "year-desc": "year-asc",
       "year-asc": "name",
     };
-    this.sort.set(next[this.sort()]);
+    this.store.sort.set(next[this.store.sort()]);
   }
 }

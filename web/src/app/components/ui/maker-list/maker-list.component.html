@@ -10,7 +10,7 @@
     <span>{{ store.error() }}</span>
     <button class="btn btn-soft" (click)="store.refresh()">Повторить</button>
   </div>
-} @else if (visible().length === 0) {
+} @else if (store.visibleMakers().length === 0) {
   <div class="card state">
     @if (store.makers().length === 0) {
       <strong>Пока нет ни одного производителя</strong>
@@ -23,7 +23,7 @@
   </div>
 } @else {
   <div class="grid">
-    @for (maker of visible(); track maker.id) {
+    @for (maker of store.visibleMakers(); track maker.id) {
       <app-maker-card [maker]="maker" (changed)="store.refresh()" />
     }
   </div>

@@ -1,6 +1,10 @@
 import { Injectable, computed, signal } from "@angular/core";
 import { Maker } from "@/models/Maker";
+import { countryInfo } from "@/utils/country";
 import { MakerService } from "./MakerService";
+
+export type RegionFilter = "all" | "europe" | "asia" | "usa";
+export type MakerSort = "name" | "year-desc" | "year-asc";
 
 /**
  * Single in-memory source of truth for the catalog.
@@ -13,10 +17,50 @@ export class CatalogStore {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly query = signal("");
+  readonly region = signal<RegionFilter>("all");
+  readonly sort = signal<MakerSort>("name");
 
   readonly totalModels = computed(() =>
     this.makers().reduce((sum, m) => sum + (m.models?.length ?? 0), 0)
   );
+
+  /** Makers left after the header search, the region filter and the chosen sort. */
+  readonly visibleMakers = computed<Maker[]>(() => {
+    const query = this.query().trim().toLowerCase();
+    const region = this.region();
+    const sort = this.sort();
+
+    const filtered = this.makers().filter((maker) => {
+      if (region !== "all" && countryInfo(maker.country).region !== region) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+      const haystack = [
+        maker.name,
+        maker.country,
+        String(maker.foundedYear),
+        ...(maker.models ?? []).map((m) => m.name),
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(query);
+    });
+
+    return [...filtered].sort((a, b) => {
+      switch (sort) {
+        case "year-desc":
+          return b.foundedYear - a.foundedYear || a.name.localeCompare(b.name, "ru");
+        case "year-asc":
+          return a.foundedYear - b.foundedYear || a.name.localeCompare(b.name, "ru");
+        default:
+          return a.name.localeCompare(b.name, "ru");
+      }
+    });
+  });
+
+  readonly visibleCount = computed(() => this.visibleMakers().length);
 
   /** Ids of makers picked for side-by-side comparison, in pick order. */
   readonly compareIds = signal<string[]>(this.readCompareIds());

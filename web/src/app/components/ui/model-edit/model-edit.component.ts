@@ -43,21 +43,7 @@ export class ModelEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.makerId = params.get("makerId");
       this.modelId = params.get("modelId");
-
-      if (this.makerId) {
-        const cached = this.store.makerById(this.makerId);
-        if (cached) {
-          this.makerName.set(cached.name);
-        } else {
-          this.makerService.getMakerById(this.makerId).subscribe({
-            next: (maker) => this.makerName.set(maker.name),
-            error: (err) => console.error("Error loading maker", err),
-          });
-        }
-      }
-
       if (!this.modelId) {
         return;
       }
@@ -65,7 +51,11 @@ export class ModelEditComponent implements OnInit {
       this.loading.set(true);
       this.modelService.getModelById(this.modelId).subscribe({
         next: (model) => {
+          // The owner comes from the model itself, never from the URL,
+          // so a hand-edited link cannot re-parent it to another maker.
+          this.makerId = model.makerId;
           this.modelForm.patchValue(model);
+          this.showMakerName(model.makerId);
           this.loading.set(false);
         },
         error: (err) => {
@@ -74,6 +64,19 @@ export class ModelEditComponent implements OnInit {
           this.submitError.set("Не удалось загрузить модель.");
         },
       });
+    });
+  }
+
+  private showMakerName(makerId: string) {
+    const cached = this.store.makerById(makerId);
+    if (cached) {
+      this.makerName.set(cached.name);
+      return;
+    }
+
+    this.makerService.getMakerById(makerId).subscribe({
+      next: (maker) => this.makerName.set(maker.name),
+      error: (err) => console.error("Error loading maker", err),
     });
   }
 
