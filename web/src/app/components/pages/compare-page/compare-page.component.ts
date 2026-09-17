@@ -115,7 +115,7 @@ export class ComparePageComponent {
         label: "Новейшая модель",
         hint: "свежее",
         cells: stats.map((s, i) => ({
-          text: s.newest ? String(s.newest.releaseYear) : "—",
+          text: s.newest ? String(s.newest.releaseYear) : "-",
           sub: s.newest?.name,
           best: newestBest[i],
         })),
@@ -123,7 +123,7 @@ export class ComparePageComponent {
       {
         label: "Первая модель в каталоге",
         cells: stats.map((s) => ({
-          text: s.oldest ? String(s.oldest.releaseYear) : "—",
+          text: s.oldest ? String(s.oldest.releaseYear) : "-",
           sub: s.oldest?.name,
           best: false,
         })),
@@ -131,7 +131,7 @@ export class ComparePageComponent {
       {
         label: "Средний год выпуска",
         hint: "свежее",
-        cells: stats.map((s, i) => ({ text: s.avg ? String(s.avg) : "—", best: avgBest[i] })),
+        cells: stats.map((s, i) => ({ text: s.avg ? String(s.avg) : "-", best: avgBest[i] })),
       },
       {
         label: "Моделей за последние 3 года",

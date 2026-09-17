@@ -9,16 +9,16 @@ import { ModelAddComponent } from "./components/ui/model-add/model-add.component
 import { ModelEditComponent } from "./components/ui/model-edit/model-edit.component";
 
 export const routes: Routes = [
-  { path: "maker-page", component: MakerPageComponent, title: "Производители — AutoMarket" },
-  { path: "model-page", component: ModelPageComponent, title: "Модели — AutoMarket" },
-  { path: "compare-page", component: ComparePageComponent, title: "Сравнение — AutoMarket" },
-  { path: "home-page", component: HomePageComponent, title: "О проекте — AutoMarket" },
+  { path: "maker-page", component: MakerPageComponent, title: "Производители - AutoMarket" },
+  { path: "model-page", component: ModelPageComponent, title: "Модели - AutoMarket" },
+  { path: "compare-page", component: ComparePageComponent, title: "Сравнение - AutoMarket" },
+  { path: "home-page", component: HomePageComponent, title: "О проекте - AutoMarket" },
 
-  { path: "maker-add", component: MakerAddComponent, title: "Новый производитель — AutoMarket" },
-  { path: "maker-edit/:id", component: MakerEditComponent, title: "Редактирование производителя — AutoMarket" },
+  { path: "maker-add", component: MakerAddComponent, title: "Новый производитель - AutoMarket" },
+  { path: "maker-edit/:id", component: MakerEditComponent, title: "Редактирование производителя - AutoMarket" },
 
-  { path: "model-add/:makerId", component: ModelAddComponent, title: "Новая модель — AutoMarket" },
-  { path: "model-edit/:modelId", component: ModelEditComponent, title: "Редактирование модели — AutoMarket" },
+  { path: "model-add/:makerId", component: ModelAddComponent, title: "Новая модель - AutoMarket" },
+  { path: "model-edit/:modelId", component: ModelEditComponent, title: "Редактирование модели - AutoMarket" },
 
   { path: "", redirectTo: "/maker-page", pathMatch: "full" },
   { path: "**", redirectTo: "/maker-page" },

@@ -60,7 +60,7 @@ export function countryInfo(country: string | null | undefined): CountryInfo {
     .toUpperCase();
 
   return {
-    code: fallback || "—",
+    code: fallback || "-",
     region: "other",
     tone: hash(normalized) % TONES,
   };
