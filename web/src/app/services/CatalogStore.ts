@@ -103,7 +103,7 @@ export class CatalogStore {
     try {
       localStorage.setItem("automarket.compare", JSON.stringify(ids));
     } catch {
-      /* storage unavailable — comparison just won't survive a reload */
+      /* storage unavailable - comparison just won't survive a reload */
     }
   }
 
